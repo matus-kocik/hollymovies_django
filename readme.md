@@ -17,7 +17,7 @@
   - Rating -> FK(Rating)
   - Comment -> FK(Comment)
   - Image -> FK(Image)
-  - video -> url odkaz na youtube na trailer
+  - video -> url YT
   - description
 - Ratings
   - id movie
