@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import Model, CharField, IntegerField, TextField, DateField, ForeignKey, ManyToManyField, SET_NULL, DO_NOTHING
+from django.db.models import *
 from .help_functions import DisplayTitle
 
 class Country(Model):
@@ -8,6 +8,7 @@ class Country(Model):
     
     class Meta:
         verbose_name_plural = "Countries"
+        ordering = ["name"]
     
     def __str__(self) -> str:
         return f"{self.name}"
@@ -18,6 +19,9 @@ class Genre(Model):
     
     def __str__(self) -> str:
         return f"{self.name}"
+    
+    class Meta:
+        ordering = ["name"]
     
     
 class Person(Model):
@@ -47,24 +51,35 @@ class Movie(Model, DisplayTitle):
 
     def __str__(self) -> str:
         return self.display_title()
+    
+    class Meta:
+        ordering = ["title_sk", "title_cz", "title_orig"]
 
 
 class Rating(Model, DisplayTitle):
     movie = ForeignKey(Movie, on_delete=DO_NOTHING, null=False, blank=False)
     user = ForeignKey(User, null=True, on_delete=SET_NULL)
     rating = IntegerField(null=False, blank=False)
+    date_added = DateTimeField(auto_now_add=True)
     
     def __str__(self) -> str:
         return f"{self.display_title()} - Rating by {self.user.username}: {self.rating}"
+
+    class Meta:
+        ordering = ["-date_added"]
 
 
 class Comment(Model, DisplayTitle):
     movie = ForeignKey(Movie, on_delete=DO_NOTHING)
     user = ForeignKey(User, null=True, on_delete=SET_NULL)
     comment = TextField(null=False, blank=False)
+    date_added = DateTimeField(auto_now_add=True)
     
     def __str__(self) -> str:
         return f"{self.display_title()} - Comment by {self.user.username}: {self.comment}"
+
+    class Meta:
+        ordering = ["-date_added"]
 
 
 class Image(Model, DisplayTitle):
@@ -74,3 +89,6 @@ class Image(Model, DisplayTitle):
     
     def __str__(self) -> str:
         return f"{self.display_title()}"
+    
+    class Meta:
+        ordering = ["movie__title_sk", "movie__title_cz", "movie__title_orig"]
