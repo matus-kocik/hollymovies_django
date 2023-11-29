@@ -16,8 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from viewer.models import Genre, Movie, Country, Person, Rating, Comment, Image
 from viewer.views import *
 
+admin.site.register(Country)
+admin.site.register(Genre)
+admin.site.register(Person)
+admin.site.register(Movie)
+admin.site.register(Rating)
+admin.site.register(Comment)
+admin.site.register(Image)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
