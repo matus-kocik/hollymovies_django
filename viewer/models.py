@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Model, CharField, IntegerField, TextField, DateField, ForeignKey, ManyToManyField, SET_NULL, DO_NOTHING
-
-# Create your models here.
+from .help_functions import DisplayTitle
 
 class Country(Model):
     name = CharField(max_length=64, null=False, blank=False)
@@ -12,12 +11,14 @@ class Country(Model):
     
     def __str__(self) -> str:
         return f"{self.name}"
+    
 
 class Genre(Model):
     name = CharField(max_length=128, null=False, blank=False) # CharField => VARCHAR
     
     def __str__(self) -> str:
         return f"{self.name}"
+    
     
 class Person(Model):
     first_name = CharField(max_length=32, null=False, blank=False)
@@ -31,7 +32,8 @@ class Person(Model):
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
     
-class Movie(Model):
+    
+class Movie(Model, DisplayTitle):
     title_orig = CharField(max_length=128, null=False, blank=False)
     title_cz = CharField(max_length=128, null=True, blank=True)
     title_sk = CharField(max_length=128, null=True, blank=True)
@@ -44,30 +46,31 @@ class Movie(Model):
     description = TextField(null=True, blank=True)
 
     def __str__(self) -> str:
-        # TODO: pokial existuje nazov cesky alebo slovensky tak zobrazit a ak ne tak ENG + do zatvorky rok
-        # Pr: Forrest Gump (1994)
-        return f"{self.title_orig}"
+        return self.display_title()
 
-class Rating(Model):
+
+class Rating(Model, DisplayTitle):
     movie = ForeignKey(Movie, on_delete=DO_NOTHING, null=False, blank=False)
     user = ForeignKey(User, null=True, on_delete=SET_NULL)
     rating = IntegerField(null=False, blank=False)
     
-"""     def __str__(self) -> str:
-        return f"{self.name}" """
-    
-class Comment(Model):
+    def __str__(self) -> str:
+        return f"{self.display_title()} - Rating by {self.user.username}: {self.rating}"
+
+
+class Comment(Model, DisplayTitle):
     movie = ForeignKey(Movie, on_delete=DO_NOTHING)
     user = ForeignKey(User, null=True, on_delete=SET_NULL)
     comment = TextField(null=False, blank=False)
     
-"""     def __str__(self) -> str:
-        return f"{self.name}" """
+    def __str__(self) -> str:
+        return f"{self.display_title()} - Comment by {self.user.username}: {self.comment}"
 
-class Image(Model):
+
+class Image(Model, DisplayTitle):
     movie = ForeignKey(Movie, on_delete=DO_NOTHING, null=False, blank=False)
     url = CharField(max_length=128, null=False, blank=False)
     description = TextField()
     
-"""     def __str__(self) -> str:
-        return f"{self.name}" """
+    def __str__(self) -> str:
+        return f"{self.display_title()}"
