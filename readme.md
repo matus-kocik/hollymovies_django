@@ -1,41 +1,43 @@
-# Filmová databáze
+# Movies database
 
-## Databáze
-- Země
-  - název
-- Žánr
-  - název 
-- Filmy (Movie)
-  - Originální název filmu
-  - Český název filmu
-  - Slovenský název filmu
-  - země -> FK(Země)
-  - Žánr -> FK(Žánr)
-  - Režisér -> FK(Person)
-  - Herci -> seznam FK(Person)
-  - Rok premiéry
-  - hodnocení -> FK(Hodnocení)
-  - komentáře -> FK(Hodnocení)
-  - obrázky -> FK(Obrázky)
+## Database
+- Country
+  - Name
+- Genre
+  - Name
+- Movies
+  - Original title movie
+  - CZ title movie
+  - SK title movie
+  - Country -> FK(Countries)
+  - Genre -> FK(Genre)
+  - Directors -> FK(Person)
+  - Actors -> seznam FK(Person)
+  - Year
+  - Rating -> FK(Rating)
+  - Comment -> FK(Comment)
+  - Image -> FK(Image)
   - video -> url odkaz na youtube na trailer
-  - popis
-- Hodnocení
-  - id filmu
-  - id uživatele
-  - hodnocení (hodnota 0-100 v %)
-- Komentáře
-  - id filmu
-  - id uživatele
-  - komentář
-- Obrázky
-  - id filmu
-  - obrázek (název souboru/image ?)
-  - popis
+  - description
+- Ratings
+  - id movie
+  - id user
+  - rating (rate 0-100 in %)
+- Comments
+  - id movie
+  - id user
+  - comment
+- Images
+  - id movie
+  - image (file name/image ?)
+  - description
 - Person
-  - Jméno
-  - Příjmení
-  - Rok narození
-  - informace
+  - Firstname
+  - Lastname
+  - Birthdate
+  - Biography
+
+TODO: Change later (translate):
 
 ## Funkce (views + templates)
 - zobrazit novinky (homepage)
