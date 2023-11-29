@@ -23,10 +23,12 @@
   - id movie
   - id user
   - rating (rate 0-100 in %)
+  - date_added
 - Comments
   - id movie
   - id user
   - comment
+  - date_added
 - Images
   - id movie
   - image (file name/image ?)
