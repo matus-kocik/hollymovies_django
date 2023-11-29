@@ -39,19 +39,17 @@
   - Birthdate
   - Biography
 
-TODO: Change later (translate):
-
-## Funkce (views + templates)
-- zobrazit novinky (homepage)
-- zobrazit seznam všech filmů
-- filtrování filmů (seznam) 
-  - podle žánru
-  - podle hodnocení
-  - podle herce
-  - podle režiséra
-- zobrazit detail filmu
-- přihlášený uživatel může:
-  - hodnotit filmy
-  - komentovat filmy
-- admin může:
-  - přidat/editovat/smazat film/herce/režiséra/žánr/země/komentáře
+## Functions (views + templates)
+- view news (homepage) - zobrazit novinky (homepage)
+- show list of all movies - zobrazit seznam všech filmů
+- movie filtering (list)- filtrování filmů (seznam) 
+   - by genre - podle žánru
+   - by rating - podle hodnocení
+   - according to the actor - podle herce
+   - according to the director - podle režiséra
+- view movie detail - zobrazit detail filmu
+- the logged in user can: - přihlášený uživatel může:
+   - rate movies - hodnotit filmy
+   - comment on movies - komentovat filmy
+- admin can: - admin může:
+   - add/edit/delete movie/actor/director/genre/country/comments - přidat/editovat/smazat film/herce/režiséra/žánr/země/komentáře
