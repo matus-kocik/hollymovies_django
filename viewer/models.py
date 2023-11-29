@@ -19,20 +19,20 @@ class Genre(Model):
 class Person(Model):
     first_name = CharField(max_length=32, null=False, blank=False)
     last_name = CharField(max_length=32, null=False, blank=False)
-    birth_date = DateField()
-    biography = TextField()
+    birth_date = DateField(null=True, blank=True)
+    biography = TextField(null=True, blank=True)
 
 class Movie(Model):
     title_orig = CharField(max_length=128, null=False, blank=False)
-    title_cz = CharField(max_length=128)
-    title_sk = CharField(max_length=128)
+    title_cz = CharField(max_length=128, null=True, blank=True)
+    title_sk = CharField(max_length=128, null=True, blank=True)
     countries = ManyToManyField(Country, blank=True, related_name="movies_in_country")
     genres = ManyToManyField(Genre, blank=True, related_name="movies_of_genre")
     directors = ManyToManyField(Person, blank=False, related_name="directing_movie")
     actors = ManyToManyField(Person, blank=True, related_name="acting_movie")
-    year = IntegerField()
-    video = CharField(max_length=128)
-    description = TextField()
+    year = IntegerField(null=True, blank=True)
+    video = CharField(max_length=128, null=True, blank=True)
+    description = TextField(null=True, blank=True)
 
 class Rating(Model):
     movie = ForeignKey(Movie, on_delete=DO_NOTHING, null=False, blank=False)
