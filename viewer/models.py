@@ -38,6 +38,8 @@ class Person(Model):
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
     
+    #TODO metoda pre vypocet veku, pripadne umrtia
+    
     
 class Movie(Model, DisplayTitle):
     title_orig = CharField(max_length=128, null=False, blank=False)
@@ -58,6 +60,8 @@ class Movie(Model, DisplayTitle):
 
     def __str__(self) -> str:
         return self.display_title()
+    
+    #TODO metoda pre vypocet priemernych hodnoteni
 
 
 class Rating(Model, DisplayTitle):
