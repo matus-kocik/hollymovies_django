@@ -1,3 +1,6 @@
+from datetime import date
+
+
 class DisplayTitle:
     def display_title(self) -> str:
         if self.title_sk:
@@ -6,8 +9,9 @@ class DisplayTitle:
             return f"{self.title_cz} ({self.year})"
         else:
             return f"{self.title_orig} ({self.year})"
-        
-class Ordering:
+
+
+class Utils:
     @classmethod
     def get_ordering(cls, class_name):
         if class_name == "Country" or class_name == "Genre":
@@ -22,3 +26,10 @@ class Ordering:
             return ["movie__title_sk", "movie__title_cz", "movie__title_orig"]
         else:
             return []
+
+    @classmethod
+    def calculate_age(cls, birth_date):
+        if birth_date:
+            today = date.today()
+            return today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+        return None
