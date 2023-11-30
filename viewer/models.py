@@ -29,6 +29,8 @@ class Person(Model):
     last_name = CharField(max_length=32, null=False, blank=False)
     birth_date = DateField(null=True, blank=True)
     biography = TextField(null=True, blank=True)
+    created = DateTimeField(auto_now_add=True)
+    updated = DateTimeField(auto_now=True)
     
     class Meta:
         ordering = Ordering.get_ordering('Person')
@@ -48,6 +50,8 @@ class Movie(Model, DisplayTitle):
     year = IntegerField(null=True, blank=True)
     video = CharField(max_length=128, null=True, blank=True)
     description = TextField(null=True, blank=True)
+    created = DateTimeField(auto_now_add=True)
+    updated = DateTimeField(auto_now=True)
     
     class Meta:
         ordering = Ordering.get_ordering('Movie')
@@ -60,7 +64,8 @@ class Rating(Model, DisplayTitle):
     movie = ForeignKey(Movie, on_delete=DO_NOTHING, null=False, blank=False)
     user = ForeignKey(User, null=True, on_delete=SET_NULL)
     rating = IntegerField(null=False, blank=False)
-    date_added = DateTimeField(auto_now_add=True)
+    created = DateTimeField(auto_now_add=True)
+    updated = DateTimeField(auto_now=True)
     
     class Meta:
         ordering = Ordering.get_ordering('Rating')
@@ -73,7 +78,8 @@ class Comment(Model, DisplayTitle):
     movie = ForeignKey(Movie, on_delete=DO_NOTHING)
     user = ForeignKey(User, null=True, on_delete=SET_NULL)
     comment = TextField(null=False, blank=False)
-    date_added = DateTimeField(auto_now_add=True)
+    created = DateTimeField(auto_now_add=True)
+    updated = DateTimeField(auto_now=True)
     
     def __str__(self) -> str:
         return f"{self.display_title()} - Comment by {self.user.username}: {self.comment}"
