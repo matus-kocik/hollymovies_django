@@ -1,14 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import *
-from .help_functions import DisplayTitle
+from .help_functions import DisplayTitle, Ordering
 
 class Country(Model):
     name = CharField(max_length=64, null=False, blank=False)
     
     class Meta:
         verbose_name_plural = "Countries"
-        ordering = ["name"]
+        ordering = Ordering.get_ordering('Country')
     
     def __str__(self) -> str:
         return f"{self.name}"
@@ -21,7 +21,7 @@ class Genre(Model):
         return f"{self.name}"
     
     class Meta:
-        ordering = ["name"]
+        ordering = Ordering.get_ordering('Genre')
     
     
 class Person(Model):
@@ -31,7 +31,7 @@ class Person(Model):
     biography = TextField(null=True, blank=True)
     
     class Meta:
-        ordering = ["last_name", "first_name"]
+        ordering = Ordering.get_ordering('Person')
     
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
@@ -53,7 +53,7 @@ class Movie(Model, DisplayTitle):
         return self.display_title()
     
     class Meta:
-        ordering = ["title_sk", "title_cz", "title_orig"]
+        ordering = Ordering.get_ordering('Movie')
 
 
 class Rating(Model, DisplayTitle):
@@ -66,7 +66,7 @@ class Rating(Model, DisplayTitle):
         return f"{self.display_title()} - Rating by {self.user.username}: {self.rating}"
 
     class Meta:
-        ordering = ["-date_added"]
+        ordering = Ordering.get_ordering('Rating')
 
 
 class Comment(Model, DisplayTitle):
@@ -79,7 +79,7 @@ class Comment(Model, DisplayTitle):
         return f"{self.display_title()} - Comment by {self.user.username}: {self.comment}"
 
     class Meta:
-        ordering = ["-date_added"]
+        ordering = Ordering.get_ordering('Comment')
 
 
 class Image(Model, DisplayTitle):
@@ -91,4 +91,4 @@ class Image(Model, DisplayTitle):
         return f"{self.display_title()}"
     
     class Meta:
-        ordering = ["movie__title_sk", "movie__title_cz", "movie__title_orig"]
+        ordering = Ordering.get_ordering('Image')
