@@ -16,8 +16,7 @@ class Country(Model):
 
 
 class Genre(Model):
-    name = CharField(max_length=128, null=False,
-                     blank=False)  # CharField => VARCHAR
+    name = CharField(max_length=128, null=False, blank=False)
 
     class Meta:
         ordering = Utils.get_ordering('Genre')
@@ -30,10 +29,10 @@ class Person(Model):
     first_name = CharField(max_length=32, null=False, blank=False)
     last_name = CharField(max_length=32, null=False, blank=False)
     birth_date = DateField(null=True, blank=True)
+    age = IntegerField(null=True, blank=True)
     biography = TextField(null=True, blank=True)
     created = DateTimeField(auto_now_add=True)
     updated = DateTimeField(auto_now=True)
-    age = IntegerField(null=True, blank=True)
 
     class Meta:
         ordering = Utils.get_ordering('Person')
@@ -42,7 +41,8 @@ class Person(Model):
         return f"{self.first_name} {self.last_name}"
 
     def save(self, *args, **kwargs):
-        self.age = Utils.calculate_age(self.birth_date)
+        if self.birth_date and self.age is None:
+            self.age = Utils.calculate_age(self.birth_date)
         super().save(*args, **kwargs)
 
 
@@ -50,11 +50,9 @@ class Movie(Model, DisplayTitle):
     title_orig = CharField(max_length=128, null=False, blank=False)
     title_cz = CharField(max_length=128, null=True, blank=True)
     title_sk = CharField(max_length=128, null=True, blank=True)
-    countries = ManyToManyField(
-        Country, blank=True, related_name="movies_in_country")
+    countries = ManyToManyField(Country, blank=True, related_name="movies_in_country")
     genres = ManyToManyField(Genre, blank=True, related_name="movies_of_genre")
-    directors = ManyToManyField(
-        Person, blank=False, related_name="directing_movie")
+    directors = ManyToManyField(Person, blank=False, related_name="directing_movie")
     actors = ManyToManyField(Person, blank=True, related_name="acting_movie")
     year = IntegerField(null=True, blank=True)
     video = CharField(max_length=128, null=True, blank=True)
