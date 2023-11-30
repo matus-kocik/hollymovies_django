@@ -82,7 +82,7 @@ class Comment(Model, DisplayTitle):
     updated = DateTimeField(auto_now=True)
     
     def __str__(self) -> str:
-        return f"{self.display_title()} - Comment by {self.user.username}: {self.comment}"
+        return f"{self.display_title()} - Comment by {self.user.username}: {self.comment[:50]}"
 
     class Meta:
         ordering = Ordering.get_ordering('Comment')
