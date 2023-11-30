@@ -17,11 +17,11 @@ class Country(Model):
 class Genre(Model):
     name = CharField(max_length=128, null=False, blank=False) # CharField => VARCHAR
     
-    def __str__(self) -> str:
-        return f"{self.name}"
-    
     class Meta:
         ordering = Ordering.get_ordering('Genre')
+    
+    def __str__(self) -> str:
+        return f"{self.name}"
     
     
 class Person(Model):
@@ -48,12 +48,12 @@ class Movie(Model, DisplayTitle):
     year = IntegerField(null=True, blank=True)
     video = CharField(max_length=128, null=True, blank=True)
     description = TextField(null=True, blank=True)
-
-    def __str__(self) -> str:
-        return self.display_title()
     
     class Meta:
         ordering = Ordering.get_ordering('Movie')
+
+    def __str__(self) -> str:
+        return self.display_title()
 
 
 class Rating(Model, DisplayTitle):
@@ -62,11 +62,11 @@ class Rating(Model, DisplayTitle):
     rating = IntegerField(null=False, blank=False)
     date_added = DateTimeField(auto_now_add=True)
     
-    def __str__(self) -> str:
-        return f"{self.display_title()} - Rating by {self.user.username}: {self.rating}"
-
     class Meta:
         ordering = Ordering.get_ordering('Rating')
+    
+    def __str__(self) -> str:
+        return f"{self.display_title()} - Rating by {self.user.username}: {self.rating}"
 
 
 class Comment(Model, DisplayTitle):
@@ -86,9 +86,9 @@ class Image(Model, DisplayTitle):
     movie = ForeignKey(Movie, on_delete=DO_NOTHING, null=False, blank=False)
     url = CharField(max_length=128, null=False, blank=False)
     description = TextField()
+        
+    class Meta:
+        ordering = Ordering.get_ordering('Image')
     
     def __str__(self) -> str:
         return f"{self.display_title()}"
-    
-    class Meta:
-        ordering = Ordering.get_ordering('Image')
