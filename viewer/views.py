@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from viewer.models import *
+
 
 # Create your views here.
 
@@ -29,3 +31,8 @@ def hello5(request, s0):
         template_name='hello5.html',
         context=context
     )
+
+def movies(request):
+    movies_list = Movie.objects.all()
+    context = {"movies" : movies_list}
+    return render(request, "movies.html", context)
