@@ -1,0 +1,153 @@
+/* $default:       #344675 !default; // EDIT for customization
+$primary:       #e14eca !default; // EDIT for customization
+$secondary:     #f4f5f7 !default; // EDIT for customization
+$success:       #00f2c3 !default; // EDIT for customization
+$info:          #1d8cf8 !default; // EDIT for customization
+$warning:       #ff8d72 !default; // EDIT for customization
+$danger:        #fd5d93 !default; // EDIT for customization
+$black:         #222a42 !default; // EDIT for customization
+ */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  background-color: #caffbf;
+  color: #000000;
+  width: 90vw;
+  max-width: 750px;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+}
+
+header, main, footer{
+  background: linear-gradient(#9393ff, #ffc65c);
+  border-radius: 50px;
+  padding: .5rem;
+}
+
+header, main, footer, a, a:hover, .active, #my-photo{
+  border: 3px solid #000000;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: .5rem auto;
+}
+
+main, footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+main, .hamburger-menu {
+  margin: .5rem auto;
+}
+
+footer {
+  margin: .5rem;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  border-radius: 50px;
+  margin: .5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.hamburger-menu span {
+  display: flex;
+  flex-direction: column;
+  height: 3px;
+  width: 125px;
+  background-color: #000000;
+  margin: 2px 0;
+}
+
+@media screen and (max-width: 768px) {
+  nav {
+      display: none;
+      flex-direction: column;
+  }
+
+  nav.open {
+      display: flex;
+  }
+
+}
+
+@media screen and (min-width: 769px) {
+  .hamburger-menu {
+      display: none;
+  }
+
+  nav {
+      display: flex;
+  }
+}
+
+a {
+  display: flex;
+  flex-direction: row;
+  color: #000000;
+  background: linear-gradient(#ffc65c, #9393ff);
+  border-radius: 50px;
+  width: 125px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  text-decoration: none;
+  transition: transform 0.5s ease;
+}
+
+a:hover, .active {
+  color: #000000;
+  cursor: pointer;
+  font-weight: bold;
+  transform: translateY(-3px)
+}
+
+#my-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  margin: .5rem;
+}
+
+.inside-main {
+  margin: .7rem;
+}
+
+#copywright-text {
+  align-self: center;
+  margin: .5rem;
+}
