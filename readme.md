@@ -40,16 +40,16 @@
   - Biography
 
 ## Functions (views + templates)
-- view news (homepage) - zobrazit novinky (homepage)
-- show list of all movies - zobrazit seznam všech filmů
-- movie filtering (list)- filtrování filmů (seznam) 
-   - by genre - podle žánru
-   - by rating - podle hodnocení
-   - according to the actor - podle herce
-   - according to the director - podle režiséra
-- view movie detail - zobrazit detail filmu
-- the logged in user can: - přihlášený uživatel může:
-   - rate movies - hodnotit filmy
-   - comment on movies - komentovat filmy
-- admin can: - admin může:
-   - add/edit/delete movie/actor/director/genre/country/comments - přidat/editovat/smazat film/herce/režiséra/žánr/země/komentáře
+- view news (homepage)
+- show list of all movies
+- movie filtering (list)
+   - by genre
+   - by rating
+   - according to the actor
+   - according to the director
+- view movie detail
+- the logged in user can:
+   - rate movies
+   - comment on movies
+- admin can:
+   - add/edit/delete movie/actor/director/genre/country/comments
