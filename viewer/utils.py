@@ -21,4 +21,4 @@ class Ordering:
         elif class_name == "Image":
             return ["movie__title_sk", "movie__title_cz", "movie__title_orig"]
         else:
-            return[]
+            return []

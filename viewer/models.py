@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import *
-from .help_functions import DisplayTitle, Ordering
+from .utils import DisplayTitle, Ordering
 
 class Country(Model):
     name = CharField(max_length=64, null=False, blank=False)
