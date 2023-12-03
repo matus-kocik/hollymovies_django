@@ -24,7 +24,7 @@ admin.site.register(Country)
 admin.site.register(Genre)
 admin.site.register(Person)
 admin.site.register(Movie)
-admin.site.register(Rating)
+#admin.site.register(Rating)
 admin.site.register(Comment)
 admin.site.register(Image)
 

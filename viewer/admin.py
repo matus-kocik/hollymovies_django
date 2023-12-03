@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Rating
+from .forms import RatingForm
 
-# Register your models here.
+class RatingAdmin(admin.ModelAdmin):
+    form = RatingForm
+
+admin.site.register(Rating, RatingAdmin)
