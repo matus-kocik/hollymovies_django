@@ -1,4 +1,5 @@
 from datetime import date
+from django.db.models import Avg, Min, Max
 
 
 class DisplayTitle:
@@ -33,3 +34,33 @@ class Utils:
             today = date.today()
             return today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
         return None
+    
+
+class RatingMethods:
+    @classmethod
+    def calculate_average_rating(cls, queryset):
+        average_rating = queryset.aggregate(Avg('rating'))['rating__avg']
+        return round(average_rating) if average_rating is not None else None
+
+    @classmethod
+    def calculate_min_rating(cls, queryset):
+        return queryset.aggregate(Min('rating'))['rating__min']
+
+    @classmethod
+    def calculate_max_rating(cls, queryset):
+        return queryset.aggregate(Max('rating'))['rating__max']
+
+    @classmethod
+    def display_average_rating(cls, movie):
+        average_rating = cls.calculate_average_rating(movie.rating_set)
+        return f"Average rating: {average_rating}" if average_rating is not None else "Rating not available."
+
+    @classmethod
+    def display_min_rating(cls, movie):
+        min_rating = cls.calculate_min_rating(movie.rating_set)
+        return f"Minimal rating: {min_rating}" if min_rating is not None else "Rating not available."
+
+    @classmethod
+    def display_max_rating(cls, movie):
+        max_rating = cls.calculate_max_rating(movie.rating_set)
+        return f"Maximal rating: {max_rating}" if max_rating is not None else "Rating not available."

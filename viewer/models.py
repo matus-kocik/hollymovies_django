@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Model, CharField, DateField, TextField, DateTimeField, IntegerField, ManyToManyField, ForeignKey, DO_NOTHING, SET_NULL
-from .utils import DisplayTitle, Utils
+from .utils import DisplayTitle, Utils, RatingMethods
 
 
 class Country(Model):
@@ -66,8 +66,10 @@ class Movie(Model, DisplayTitle):
     def __str__(self) -> str:
         return self.display_title()
 
-    # TODO metoda pre vypocet priemernych hodnoteni
-
+    def display_stats(self):
+        rating_methods = RatingMethods()
+        return rating_methods.display_average_rating(self), rating_methods.display_min_rating(self), rating_methods.display_max_rating(self)
+    
 
 class Rating(Model, DisplayTitle):
     movie = ForeignKey(Movie, on_delete=DO_NOTHING, null=False, blank=False)
