@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ movie.title_orig }}</h2>
+<div>Original title: {{movie.title_orig}}</div>
+<h2>Statistic:</h2>
+    <p>{{ movie.display_stats }}</p>
+
+{% endblock %}

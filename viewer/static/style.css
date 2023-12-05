@@ -113,7 +113,7 @@ nav {
   }
 }
 
-a {
+nav a {
   display: flex;
   flex-direction: row;
   color: #000000;
@@ -128,7 +128,7 @@ a {
   transition: transform 0.5s ease;
 }
 
-a:hover, .active {
+nav a:hover, nav .active {
   color: #000000;
   cursor: pointer;
   font-weight: bold;
