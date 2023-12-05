@@ -43,8 +43,9 @@ class Person(Model):
 
     def save(self, *args, **kwargs):
         if self.birth_date and self.age is None:
-            self.age = Utils.calculate_age(self.birth_date)
+            self.age = Utils.calculate_age(self.birth_date, self.death_date)
         super().save(*args, **kwargs)
+
 
 
 class Movie(Model, DisplayTitle):
