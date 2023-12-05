@@ -1,5 +1,7 @@
 from datetime import date
+from dateutil.relativedelta import relativedelta
 from django.db.models import Avg, Min, Max
+
 
 
 class DisplayTitle:
@@ -29,10 +31,15 @@ class Utils:
             return []
 
     @classmethod
-    def calculate_age(cls, birth_date):
+    def calculate_age(cls, birth_date, death_date=None):
         if birth_date:
-            today = date.today()
-            return today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+            if death_date:
+                delta = relativedelta(death_date, birth_date)
+                return delta.years
+            else:
+                today = date.today()
+                delta = relativedelta(today, birth_date)
+                return delta.years
         return None
     
 

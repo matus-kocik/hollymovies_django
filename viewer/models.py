@@ -29,6 +29,7 @@ class Person(Model):
     first_name = CharField(max_length=32, null=False, blank=False)
     last_name = CharField(max_length=32, null=False, blank=False)
     birth_date = DateField(null=True, blank=True)
+    death_date = DateField(null=True, blank=True)
     age = IntegerField(null=True, blank=True)
     biography = TextField(null=True, blank=True)
     created = DateTimeField(auto_now_add=True)
