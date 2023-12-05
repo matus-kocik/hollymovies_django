@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load static %}
 
 <h1>Welcome</h1>
 <div>
-    <!-- <img id="my-photo" src="./image/my_foto.jpg" alt="My Photo"> -->
+    <img id="my-photo" src="{% static 'images/my_foto.jpg' %}" alt="My Photo">
 </div>
 <div class="inside-main">
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis nostrum corporis laudantium quasi cupiditate officia quisquam expedita enim in accusantium, vero aut itaque nisi laboriosam qui iusto magnam voluptatem libero.

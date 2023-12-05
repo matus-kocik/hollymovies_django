@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
-<h1>Zoznam filmov</h1>
+{% block content %}
+<h1>List of movies</h1>
 <ul>
     {% for movie in movies %}
         <li>{{ movie }}</li>
     {% endfor %}
 </ul>
+{% endblock %}
