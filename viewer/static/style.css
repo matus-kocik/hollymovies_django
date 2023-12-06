@@ -153,9 +153,14 @@ nav button:hover, nav .active {
   transform: translateY(-3px)
 }
 
-a {
+li a, a {
   color: #f4f5f7;
   text-decoration: none;
+}
+
+li a:hover {
+  text-decoration: none;
+  background: #222a42;
 }
 
 #my-photo {
