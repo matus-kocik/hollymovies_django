@@ -39,7 +39,8 @@ def index(request):
 
 def movies(request):
     movies_list = Movie.objects.all()
-    context = {"movies": movies_list}
+    genres_list = Genre.objects.all()
+    context = {"movies": movies_list, "genres": genres_list}
     return render(request, "movies.html", context)
 
 
@@ -48,6 +49,11 @@ def movie(request, pk):
     context = {"movie": movie_obj}
     return render(request, "movie.html", context)
 
+def movies_by_genre(request, pk):
+    genre_movies = Genre.objects.get(id=pk)
+    genres_list = Genre.objects.all()
+    context = {"movies": genre_movies.movies_of_genre.all(), "genres": genres_list}
+    return render(request, "movies.html", context )
 
 def persons(request):
     persons_list = Person.objects.all()
@@ -58,3 +64,4 @@ def person(request, pk):
     person_obj = Person.objects.get(id=pk)
     context = {"person": person_obj}
     return render(request, "person.html", context)
+

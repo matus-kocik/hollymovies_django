@@ -11,5 +11,13 @@
         {% endfor %}
     </ul>
 </div>
+<h2>List of genres:</h2>
+<div class="inside-main">
+    <ul>
+        {% for genre in genres %}
+            <li><a href="{% url 'genre' genre.id %}">{{ genre }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
 
 {% endblock %}
