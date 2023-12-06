@@ -1,5 +1,5 @@
 const currentYear = new Date().getFullYear();
-document.getElementById("copywright-text").textContent = "© preco to nefunguje, ${currentYear}";
+document.getElementById("copywright-text").textContent = `© created by Matúš Kočik, ${currentYear}`;
 
 document.querySelectorAll('nav a').forEach(function(link) {
     if (window.location.href.includes(link.getAttribute('href'))) {
@@ -10,7 +10,3 @@ document.querySelectorAll('nav a').forEach(function(link) {
 document.querySelector('.hamburger-menu').addEventListener('click', function() {
     document.querySelector('nav').classList.toggle('open');
 });
-
-
-
-/* © created by Matúš Kočik */
