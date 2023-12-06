@@ -1,6 +1,6 @@
-/* $default:       #344675 !default; // EDIT for customization
-$primary:       #e14eca !default; // EDIT for customization
-$secondary:     #f4f5f7 !default; // EDIT for customization
+/* $default tmavomodrosiva:       #344675 !default; // EDIT for customization
+$primary ruzova:       #e14eca !default; // EDIT for customization
+$secondary svetlobielosiva:     #f4f5f7 !default; // EDIT for customization
 $success:       #00f2c3 !default; // EDIT for customization
 $info:          #1d8cf8 !default; // EDIT for customization
 $warning:       #ff8d72 !default; // EDIT for customization
@@ -14,12 +14,13 @@ $black:         #222a42 !default; // EDIT for customization
 html, body {
   margin: 0;
   padding: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: sans-serif;
+  font-size: 1.1rem;
 }
 
 body {
-  background-color: #caffbf;
-  color: #000000;
+  background-color: #f4f5f7;
+  color: #f4f5f7;
   width: 90vw;
   max-width: 750px;
   margin: 1.5rem auto;
@@ -28,12 +29,12 @@ body {
 }
 
 header, main, footer{
-  background: linear-gradient(#9393ff, #ffc65c);
+  background: linear-gradient(#00f2c3, #344675);
   border-radius: 50px;
   padding: .5rem;
 }
 
-header, main, footer, a, a:hover, .active, #my-photo{
+header, main, footer, button, button:hover, .active, #my-photo{
   border: 3px solid #000000;
 }
 
@@ -53,12 +54,26 @@ main, footer {
   justify-content: center;
 }
 
-main, .hamburger-menu {
-  margin: .5rem auto;
+main, .hamburger-menu footer {
+  margin: .5rem;
 }
 
 footer {
   margin: .5rem;
+}
+
+h1 {
+  color: #344675;
+}
+
+ul {
+  list-style: none;
+  border: 2px;
+  text-align: center;
+}
+
+li {
+  padding: .15rem;
 }
 
 nav {
@@ -113,26 +128,31 @@ nav {
   }
 }
 
-nav a {
+nav button {
   display: flex;
   flex-direction: row;
-  color: #000000;
-  background: linear-gradient(#ffc65c, #9393ff);
+  color: #f4f5f7;
+  font-size: 1.1rem;
+  background: linear-gradient(#344675, #00f2c3);
   border-radius: 50px;
   width: 125px;
   height: 50px;
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  text-decoration: none;
   transition: transform 0.5s ease;
 }
 
-nav a:hover, nav .active {
-  color: #000000;
+nav button:hover, nav .active {
+  color: #f4f5f7;
   cursor: pointer;
   font-weight: bold;
   transform: translateY(-3px)
+}
+
+a {
+  color: #f4f5f7;
+  text-decoration: none;
 }
 
 #my-photo {

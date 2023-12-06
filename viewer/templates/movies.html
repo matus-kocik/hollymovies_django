@@ -3,10 +3,12 @@
 {% block content %}
 
 <h1>List of movies</h1>
-<ul>
-    {% for movie in movies %}
-        <li><a href="{% url 'movie' movie.id %}">{{ movie }}</a></li>
-    {% endfor %}
-</ul>
+<div class="inside-main">
+    <ul>
+        {% for movie in movies %}
+            <li><a href="{% url 'movie' movie.id %}">{{ movie }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
 
 {% endblock %}
