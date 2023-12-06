@@ -1,9 +1,37 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{{ movie.title_orig }}</h2>
-<div>Original title: {{movie.title_orig}}</div>
-<h2>Statistic:</h2>
-    <p>{{ movie.display_stats }}</p>
+    <h1>{{ movie.title_orig }}</h1>
+    <div class="display-stats">{{ movie.display_stats }}</div>
+    <div class="movie-title-orig">Original title: {{ movie.title_orig }}</div>
+    <div class="movie-title-cz">CZ title: {{ movie.title_cz }}</div>
+    <div class="movie-title-sk">SK title: {{ movie.title_sk }}</div>
+    <div class="movie-year">Year: {{ movie.year }}</div>
+    <div class="movie-actors">Actors:
+        {% for actor in movie.actors.all %}
+        <span class="movie-actor">{{ actor }}
+        {% empty %}
+            Nehraje nikto...
+        {% endfor %}
+    </div>
+    <div class="movie-directors">Directors:
+        {% for director in movie.directors.all %}
+            <span class="movie-director">{{ director }}</span>
+        {% endfor %}
+    </div>
+    <div class="movie-countries">Country:
+        {% for country in movie.countries.all %}
+            {{ country }}
+        {% endfor %}
+    </div>
+    <div class="movie-genres">Genres: 
+        {% for genre in movie.genres.all %}
+            {{ genre }}
+        {% endfor %}
+    </div>
+
+
+    <h3>Description:</h3>
+    <div class="inside-main">{{ movie.description }}</div>
 
 {% endblock %}

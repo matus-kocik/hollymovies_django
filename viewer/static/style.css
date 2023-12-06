@@ -22,7 +22,7 @@ body {
   background-color: #f4f5f7;
   color: #f4f5f7;
   width: 90vw;
-  max-width: 750px;
+  max-width: 950px;
   margin: 1.5rem auto;
   display: flex;
   flex-direction: column;
@@ -62,7 +62,7 @@ footer {
   margin: .5rem;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, h5 {
   color: #344675;
   margin-block-start: 0.1em;
   margin-block-end: 0.1em;
@@ -178,4 +178,9 @@ li a:hover {
 #copywright-text {
   align-self: center;
   margin: .5rem;
+}
+
+.display-stats, .movie-actors, .movie-genres, .movie-directors, .movie-countries, .movie-year, .movie-title-orig, .movie-title-cz, .movie-title-sk, .movie-actors {
+  color: #344675;
+  margin: .1rem;
 }
