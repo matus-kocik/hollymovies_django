@@ -47,7 +47,6 @@ class Person(Model):
         super().save(*args, **kwargs)
 
 
-
 class Movie(Model, DisplayTitle):
     title_orig = CharField(max_length=128, null=False, blank=False)
     title_cz = CharField(max_length=128, null=True, blank=True)

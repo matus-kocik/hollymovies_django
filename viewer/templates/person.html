@@ -7,6 +7,20 @@
     <div class="birth-date">Birthdate: {{ person.birth_date }}</div>
     <div class="death-date">Deathdate: {{ person.death_date }}</div>
     <div class="age">Age: {{ person.age }}</div>
+    <div>
+        {% for movie in person.acting_movie.all %}
+            <a href="{% url 'movie' movie.id %}">{{ movie }},</a>
+        {% empty %}
+        Nehral v ziadnom filme...
+        {% endfor %}
+    </div>
+    <div>
+        {% for movie in person.directing_movie.all %}
+            <a href="{% url 'movie' movie.id %}">{{ movie }},</a>
+        {% empty %}
+        Nereziroval ziadny film...
+        {% endfor %}
+    </div>
 
 
     <h3>Biography:</h3>

@@ -184,3 +184,10 @@ li a:hover, main a:hover {
   color: #344675;
   margin: .2rem;
 }
+
+.persons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
