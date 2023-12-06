@@ -42,4 +42,5 @@ urlpatterns = [
     path("persons/", persons, name="persons"),
     path("person/<pk>/", person, name="person"),
     path("genre/<pk>/", movies_by_genre, name="genre"),
+    path("country/<pk>/", movies_by_country, name="country")
 ]

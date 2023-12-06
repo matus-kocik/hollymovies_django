@@ -19,5 +19,13 @@
         {% endfor %}
     </ul>
 </div>
+<h2>List of countries:</h2>
+<div class="inside-main">
+    <ul>
+        {% for country in countries %}
+            <li><a href="{% url 'country' country.id %}">{{ country }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
 
 {% endblock %}
