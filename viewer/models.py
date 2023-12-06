@@ -82,9 +82,6 @@ class Rating(Model, DisplayTitle):
     class Meta:
         ordering = Utils.get_ordering('Rating')
 
-    def __str__(self) -> str:
-        return f"{self.display_title()} - Rating by {self.user.username}: {self.rating}"
-
 
 class Comment(Model, DisplayTitle):
     movie = ForeignKey(Movie, on_delete=DO_NOTHING)
@@ -92,9 +89,6 @@ class Comment(Model, DisplayTitle):
     comment = TextField(null=False, blank=False)
     created = DateTimeField(auto_now_add=True)
     updated = DateTimeField(auto_now=True)
-
-    def __str__(self) -> str:
-        return f"{self.display_title()} - Comment by {self.user.username}: {self.comment[:50]}"
 
     class Meta:
         ordering = Utils.get_ordering('Comment')
