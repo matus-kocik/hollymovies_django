@@ -153,12 +153,12 @@ nav button:hover, nav .active {
   transform: translateY(-3px)
 }
 
-li a, a {
+li a, main a, a {
   color: #f4f5f7;
   text-decoration: none;
 }
 
-li a:hover {
+li a:hover, main a:hover {
   text-decoration: none;
   background: #222a42;
 }
@@ -182,5 +182,5 @@ li a:hover {
 
 .display-stats, .movie-actors, .movie-genres, .movie-directors, .movie-countries, .movie-year, .movie-title-orig, .movie-title-cz, .movie-title-sk, .movie-actors {
   color: #344675;
-  margin: .1rem;
+  margin: .2rem;
 }
