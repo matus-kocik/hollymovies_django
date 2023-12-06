@@ -39,4 +39,6 @@ urlpatterns = [
     path("", index, name="index"),
     path("movies/", movies, name="movies"),
     path("movie/<pk>/", movie, name="movie"),
+    path("persons/", persons, name="persons"),
+    path("person/<pk>/", person, name="person"),
 ]

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>List of Persons</h1>
+    <div class="first-name">First name: {{ person.first_name }}</div>
+    <div class="last-name">Last name: {{ person.last_name }}</div>
+    <div class="birth-date">Birthdate: {{ person.birth_date }}</div>
+    <div class="death-date">Deathdate: {{ person.death_date }}</div>
+    <div class="age">Age: {{ person.age }}</div>
+
+
+    <h3>Biography:</h3>
+    <div class="inside-main">{{ person.biography }}</div>
+
+{% endblock %}

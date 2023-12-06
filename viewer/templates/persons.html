@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Persons</h1>
+<h2>List of persons:</h2>
+<div class="inside-main">
+    <ul>
+        {% for person in persons %}
+            <li><a href="{% url 'person' person.id %}">{{ person }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- <h2>List of actors:</h2>
+<div class="inside-main">
+    <ul>
+        {% for actor in actors %}
+            <li>{{ actor }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<h2>List of directors:</h2>
+<div class="inside-main">
+    <ul>
+        {% for director in directors %}
+            <li>{{ director }}</li>
+        {% empty %}
+            No Directors...
+        {% endfor %}
+    </ul>
+</div> -->
+
+{% endblock %}
