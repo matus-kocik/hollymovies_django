@@ -4,6 +4,37 @@
 <h1>List of persons:</h1>
 <div class="persons">
     <h2>List of actors:</h2>
+    <div class="persons">
+        <ul>
+            {% for actor in actors %}
+                <li><a href="{% url 'person' actor.id %}">{{ actor }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <h2>List of directors:</h2>
+    <div class="persons">
+        <ul>
+            {% for director in directors %}
+                <li><a href="{% url 'person' director.id %}">{{ director }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <h2>All:</h2>
+    <div class="persons">
+        <ul>
+            {% for person in persons %}
+                <li><a href="{% url 'person' person.id %}">{{ person }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+<!-- 
+    <h2>List of actors:</h2>
     <div class="inside-main">
         {% for person in persons %}
             {% for movie in person.acting_movie.all %}
@@ -34,4 +65,5 @@
     </div>
 </div>
 
-{% endblock %}
+
+-->

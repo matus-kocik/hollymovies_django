@@ -95,7 +95,9 @@ def movies_by_country(request, pk):
 
 def persons(request):
     persons_list = Person.objects.all()
-    context = {"persons": persons_list}
+    actors_list = Person.objects.filter(acting_movie__isnull=False).distinct()
+    directors_list = Person.objects.filter(directing_movie__isnull=False).distinct()
+    context = {"persons": persons_list, "actors": actors_list, "directors": directors_list}
     return render(request, "persons.html", context)
 
 def person(request, pk):
