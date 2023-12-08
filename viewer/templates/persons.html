@@ -7,7 +7,7 @@
     <div class="persons">
         <ul>
             {% for actor in actors %}
-                <li><a href="{% url 'person' actor.id %}">{{ actor }}</a></li>
+                <li><a href="{% url 'person' actor.id %}">{{ actor }} ({{ actor.acting_movie.count }})</a></li>
             {% endfor %}
         </ul>
     </div>
@@ -15,7 +15,7 @@
     <div class="persons">
         <ul>
             {% for director in directors %}
-                <li><a href="{% url 'person' director.id %}">{{ director }}</a></li>
+                <li><a href="{% url 'person' director.id %}">{{ director }} ({{ director.directing_movie.count }})</a></li>
             {% endfor %}
         </ul>
     </div>
