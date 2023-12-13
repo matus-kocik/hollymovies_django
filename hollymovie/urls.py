@@ -44,13 +44,15 @@ urlpatterns = [
     #path("movies/", MoviesTemplateView.as_view(), name="movies"),
     path("movies/", MoviesListView.as_view(), name="movies"),
     
-    path("movie/create/", MovieCreateView.as_view(), name="movie_create"),
+    path("movie/create/", MovieFormView.as_view(), name="movie_create"),
     path("movie/<pk>/", movie, name="movie"),
     
     #path("persons/", persons, name="persons"),
     path("persons/", PersonsListView.as_view(), name="persons"),
     
+    #path("person/create/", PersonFormView.as_view(), name="person_create"),
     path("person/create/", PersonCreateView.as_view(), name="person_create"),
+    path("person/update/<pk>/", PersonUpdateView.as_view(), name="person_update"),
 
     path("person/<pk>/", person, name="person"),
     path("genre/<pk>/", movies_by_genre, name="genre"),

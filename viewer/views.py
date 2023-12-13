@@ -1,9 +1,14 @@
+from collections.abc import Mapping
 from logging import getLogger
+from typing import Any
+from django.core.files.base import File
+from django.db.models.base import Model
+from django.forms.utils import ErrorList
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, ListView, FormView
+from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
 from viewer.models import *
 from django.forms import Form, ModelChoiceField, Textarea, IntegerField, CharField, ModelMultipleChoiceField, CheckboxSelectMultiple, ModelForm, DateField, SelectDateWidget, DateInput
 from datetime import datetime
@@ -126,7 +131,7 @@ class MovieForm(Form):
         return super().clean()
 
 
-class MovieCreateView(FormView):
+class MovieFormView(FormView):
     template_name = "movie_create.html"
     form_class = MovieForm
     succes_url = reverse_lazy("movie_create")
@@ -178,7 +183,83 @@ def persons(request):
     return render(request, "persons.html", context)
 
 
-class PersonForm(Form):
+class PersonModelForm(ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["birth_date"].widget = DateInput(
+            attrs={
+                "type": "date",
+                "placeholder": "dd-mm-yyyy",
+                "class": "form-control"
+            }
+        )
+    
+    class Meta:
+        model = Person
+        fields = "__all__"  #- zobrazuje sa vsetko
+        # fields = ["first_name", "Last_name"] # da sa menit aj poradie len prehodenim ...
+        # exclude = ["biography"] - zoznam vsetkeho okrem toho co je v zozname
+
+    def clean_first_name(self):
+        initial_form = super().clean()
+        initial = initial_form["first_name"].strip()
+        return initial.capitalized()
+    
+    def clean_last_name(self):
+        initial_form = super().clean()
+        initial = initial_form["last_name"].strip()
+        return initial.capitalized()
+    
+    def clean(self):
+        return super().clean()
+        
+class PersonFormView(FormView):
+    template_name = "person_create.html"
+    form_class = PersonModelForm
+    succes_url = reverse_lazy("person_create")
+    
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        cleaned_data = form.cleaned_data
+        Person.objects.create(
+            first_name = cleaned_data["first_name"],
+            last_name = cleaned_data["last_name"],
+            birth_date = cleaned_data["birth_date"],
+            death_date = cleaned_data["death_date"],
+            age = cleaned_data["age"],
+            biography = cleaned_data["biography"],
+        )
+        return result
+    
+    def form_invalid(self, form):
+        LOGGER.warning("User provided invalid data.")
+        return super().form_invalid(form)
+
+class PersonCreateView(CreateView):
+    template_name = "person_create.html"
+    form_class = PersonModelForm
+    succes_url = reverse_lazy("person_create")
+    
+    def form_invalid(self, form):
+        LOGGER.warning("User provided invalid data.")
+        return super().form_invalid(form)
+    
+class PersonUpdateView(UpdateView):
+    template_name = "person_create.html"
+    model = Person
+    form_class = PersonModelForm
+    succes_url = reverse_lazy("persons")
+    
+    def form_invalid(self, form):
+        LOGGER.warning("User provided invalid data.")
+        return super().form_invalid(form)
+
+    
+"""
+Rozsirenejsia verzia ako pri MovieForm (vid vyssie)
+
+    class PersonForm(Form):
     first_name = CharField(max_length=32)
     last_name = CharField(max_length=32)
     birth_date = DateField()
@@ -199,7 +280,7 @@ class PersonForm(Form):
     def clean(self):
         return super().clean()
 
-class PersonCreateView(FormView):
+class PersonFormView(FormView):
     template_name = "person_create.html"
     form_class = PersonForm
     succes_url = reverse_lazy("person_create")
@@ -220,7 +301,7 @@ class PersonCreateView(FormView):
     def form_invalid(self, form):
         LOGGER.warning("User provided invalid data.")
         return super().form_invalid(form)
-
+"""
 # Pomocou ListView
 class PersonsListView(ListView):
     template_name = "persons2.html"
