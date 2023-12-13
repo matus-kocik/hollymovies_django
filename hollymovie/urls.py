@@ -50,6 +50,8 @@ urlpatterns = [
     #path("persons/", persons, name="persons"),
     path("persons/", PersonsListView.as_view(), name="persons"),
     
+    path("person/create/", PersonCreateView.as_view(), name="person_create"),
+
     path("person/<pk>/", person, name="person"),
     path("genre/<pk>/", movies_by_genre, name="genre"),
     path("country/<pk>/", movies_by_country, name="country")

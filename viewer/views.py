@@ -109,10 +109,10 @@ class MovieForm(Form):
     title_orig = CharField(max_length=128)
     title_cz = CharField(max_length=128, required=False)
     title_sk = CharField(max_length=128, required=False)
-    countries = ModelChoiceField(queryset=Country.objects)
-    genres = ModelChoiceField(queryset=Genre.objects)
-    directors = ModelChoiceField(queryset=Person.objects)
-    actors = ModelChoiceField(queryset=Person.objects)
+    countries = ModelMultipleChoiceField(queryset=Country.objects)
+    genres = ModelMultipleChoiceField(queryset=Genre.objects, widget=CheckboxSelectMultiple)
+    directors = ModelMultipleChoiceField(queryset=Person.objects)
+    actors = ModelMultipleChoiceField(queryset=Person.objects)
     year = IntegerField(min_value=1900, max_value=datetime.now().year + 3)
     video = CharField(max_length=128)
     description = CharField(widget=Textarea, required=False)
@@ -134,17 +134,23 @@ class MovieCreateView(FormView):
     def form_valid(self, form):
         result = super().form_valid(form)
         cleaned_data = form.cleaned_data
-        Movie.objects.create(
+        new_movie = Movie.objects.create(
             title_orig = cleaned_data["title_orig"],
             title_cz = cleaned_data["title_cz"],
             title_sk = cleaned_data["title_sk"],
-            countries = cleaned_data["countries"],
-            genres = cleaned_data["genres"],
-            directors = cleaned_data["directors"],
-            actors = cleaned_data["actors"],
+            #countries = cleaned_data["countries"],
+            #genres = cleaned_data["genres"],
+            #directors = cleaned_data["directors"],
+            #actors = cleaned_data["actors"],
             year = cleaned_data["year"],
             video = cleaned_data["video"],
-            description = cleaned_data["description"],)
+            description = cleaned_data["description"],
+        )
+        new_movie.countries.set(cleaned_data["countries"])
+        new_movie.genres.set(cleaned_data["genres"])
+        new_movie.directors.set(cleaned_data["directors"])
+        new_movie.actors.set(cleaned_data["actors"])
+        new_movie.save()
         return result
     
     def form_invalid(self, form):
@@ -163,12 +169,57 @@ def movies_by_country(request, pk):
     context = {"movies": country_movies.movies_in_country.all(), "countries": countries_list}
     return render(request, "movies.html", context)
 
+
 def persons(request):
     persons_list = Person.objects.all()
     actors_list = Person.objects.filter(acting_movie__isnull=False).distinct()
     directors_list = Person.objects.filter(directing_movie__isnull=False).distinct()
     context = {"persons": persons_list, "actors": actors_list, "directors": directors_list}
     return render(request, "persons.html", context)
+
+
+class PersonForm(Form):
+    first_name = CharField(max_length=32)
+    last_name = CharField(max_length=32)
+    birth_date = DateField()
+    death_date = DateField()
+    age = IntegerField()
+    biography = TextField()
+    
+    def clean_first_name(self):
+        initial_form = super().clean()
+        initial = initial_form["first_name"].strip()
+        return initial.capitalized()
+    
+    def clean_last_name(self):
+        initial_form = super().clean()
+        initial = initial_form["last_name"].strip()
+        return initial.capitalized()
+    
+    def clean(self):
+        return super().clean()
+
+class PersonCreateView(FormView):
+    template_name = "person_create.html"
+    form_class = PersonForm
+    succes_url = reverse_lazy("person_create")
+    
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        cleaned_data = form.cleaned_data
+        Person.objects.create(
+            first_name = cleaned_data["first_name"],
+            last_name = cleaned_data["last_name"],
+            birth_date = cleaned_data["birth_date"],
+            death_date = cleaned_data["death_date"],
+            age = cleaned_data["age"],
+            biography = cleaned_data["biography"],
+        )
+        return result
+    
+    def form_invalid(self, form):
+        LOGGER.warning("User provided invalid data.")
+        return super().form_invalid(form)
 
 # Pomocou ListView
 class PersonsListView(ListView):
