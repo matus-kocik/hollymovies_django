@@ -30,6 +30,7 @@ admin.site.register(Image)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
     path("hello", hello),
     path("hello2/<s>", hello2),
     path("hello3/", hello3),
@@ -43,6 +44,7 @@ urlpatterns = [
     #path("movies/", MoviesTemplateView.as_view(), name="movies"),
     path("movies/", MoviesListView.as_view(), name="movies"),
     
+    path("movie/create/", MovieCreateView.as_view(), name="movie_create"),
     path("movie/<pk>/", movie, name="movie"),
     
     #path("persons/", persons, name="persons"),

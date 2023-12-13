@@ -1,9 +1,9 @@
-from django.forms import Form, ModelChoiceField, Textarea, IntegerField
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, FormView
 from viewer.models import *
+from django.forms import Form, ModelChoiceField, Textarea, IntegerField, CharField, ModelMultipleChoiceField, CheckboxSelectMultiple, ModelForm, DateField, SelectDateWidget, DateInput
 
 
 # Create your views here.
@@ -100,6 +100,24 @@ def movie(request, pk):
     movie_obj = Movie.objects.get(id=pk)
     context = {"movie": movie_obj}
     return render(request, "movie.html", context)
+
+
+class MovieForm(Form):
+    title_orig = CharField(max_length=128)
+    title_cz = CharField(max_length=128, required=False)
+    title_sk = CharField(max_length=128, required=False)
+    countries = ModelChoiceField(queryset=Country.objects)
+    genres = ModelChoiceField(queryset=Genre.objects)
+    directors = ModelChoiceField(queryset=Person.objects)
+    actors = ModelChoiceField(queryset=Person.objects)
+    year = IntegerField(min_value=1900, max_value=2030) #TODO: Pozor pri max_value o par rokov to nebude platit, cize to nejako vyriesit
+    video = CharField(max_length=128)
+    description = CharField(widget=Textarea, required=False)
+    
+class MovieCreateView(FormView):
+    template_name = "movie_create.html"
+    form_class = MovieForm
+
 
 def movies_by_genre(request, pk):
     genre_movies = Genre.objects.get(id=pk)
