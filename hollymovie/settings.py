@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "django_dump_load_utf8",  # + pip install django_dump_load_utf8 ... (potom prikaz pre load: python manage.py loaddatautf8 fixtures.json)
+    "rest_framework",
     
     "viewer",
 ]

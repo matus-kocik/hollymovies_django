@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 from viewer.models import Genre, Movie, Country, Person, Rating, Comment, Image
 from viewer.views import *
@@ -56,5 +56,7 @@ urlpatterns = [
 
     path("person/<pk>/", person, name="person"),
     path("genre/<pk>/", movies_by_genre, name="genre"),
-    path("country/<pk>/", movies_by_country, name="country")
+    path("country/<pk>/", movies_by_country, name="country"),
+    
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
