@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Movies</h1>
+<h2>List of movies: {{ filtered_by }}</h2>
+<div class="inside-main">
+    <ul>
+        {% for movie in object_list %}
+            <li><a href="{% url 'movie' movie.id %}">{{ movie }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<h2>List of genres:</h2>
+<div class="inside-main">
+    <ul>
+        {% for genre in genres %}
+            <li><a href="{% url 'genre' genre.id %}">{{ genre }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<h2>List of countries:</h2>
+<div class="inside-main">
+    <ul>
+        {% for country in countries %}
+            <li><a href="{% url 'country' country.id %}">{{ country }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

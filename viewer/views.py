@@ -1,6 +1,8 @@
 from django.forms import Form, ModelChoiceField, Textarea, IntegerField
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views import View
+from django.views.generic import TemplateView, ListView
 from viewer.models import *
 
 
@@ -37,8 +39,9 @@ def hello5(request, s0):
 def index(request):
     return render(request, "index.html")
 
-
-def movies(request):
+# Pomocou funkcie:
+"""
+    def movies(request):
     g = request.GET.get("genre", "")
     genres = Genre.objects.all()
     if g != "" and c != "":
@@ -73,7 +76,24 @@ def movies(request):
     movies_list = Movie.objects.all()
     genres_list = Genre.objects.all()
     context = {"movies": movies_list, "genres": genres_list, "filtered_by": ""}
-    return render(request, "movies.html", context)
+    return render(request, "movies.html", context) 
+"""
+# Pomocou vseobecnej triedy View
+class MoviesView(View):
+    def get(self, request):
+        movies_list = Movie.objects.all()
+        context = {"movies": movies_list}
+        return render(request, "movies.html", context)
+    
+# Pomocou TemplateView:
+class MoviesTemplateView(TemplateView):
+    template_name = "movies.html"
+    extra_context = {"movies": Movie.objects.all()}
+
+# Pomocou ListView
+class MoviesListView(ListView):
+    template_name = "movies2.html"
+    model = Movie
 
 
 def movie(request, pk):
@@ -99,6 +119,13 @@ def persons(request):
     directors_list = Person.objects.filter(directing_movie__isnull=False).distinct()
     context = {"persons": persons_list, "actors": actors_list, "directors": directors_list}
     return render(request, "persons.html", context)
+
+# Pomocou ListView
+class PersonsListView(ListView):
+    template_name = "persons2.html"
+    model = Person
+    
+#TODO: vytvorit CBV, ktora zvlast zobrazi actors a directors, lepsia templateview
 
 def person(request, pk):
     person_obj = Person.objects.get(id=pk)
