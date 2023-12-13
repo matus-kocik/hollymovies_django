@@ -1,13 +1,16 @@
+from logging import getLogger
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, FormView
 from viewer.models import *
 from django.forms import Form, ModelChoiceField, Textarea, IntegerField, CharField, ModelMultipleChoiceField, CheckboxSelectMultiple, ModelForm, DateField, SelectDateWidget, DateInput
-
+from datetime import datetime
 
 # Create your views here.
 
+LOGGER = getLogger()
 
 def hello(request):
     return HttpResponse("Hello world!")
@@ -110,14 +113,43 @@ class MovieForm(Form):
     genres = ModelChoiceField(queryset=Genre.objects)
     directors = ModelChoiceField(queryset=Person.objects)
     actors = ModelChoiceField(queryset=Person.objects)
-    year = IntegerField(min_value=1900, max_value=2030) #TODO: Pozor pri max_value o par rokov to nebude platit, cize to nejako vyriesit
+    year = IntegerField(min_value=1900, max_value=datetime.now().year + 3)
     video = CharField(max_length=128)
     description = CharField(widget=Textarea, required=False)
     
+    def clean_title_orig(self):
+        initial_form = super().clean()
+        initial = initial_form["title_orig"].strip()
+        return initial.capitalized()
+    
+    def clean(self):
+        return super().clean()
+
+
 class MovieCreateView(FormView):
     template_name = "movie_create.html"
     form_class = MovieForm
-
+    succes_url = reverse_lazy("movie_create")
+    
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        cleaned_data = form.cleaned_data
+        Movie.objects.create(
+            title_orig = cleaned_data["title_orig"],
+            title_cz = cleaned_data["title_cz"],
+            title_sk = cleaned_data["title_sk"],
+            countries = cleaned_data["countries"],
+            genres = cleaned_data["genres"],
+            directors = cleaned_data["directors"],
+            actors = cleaned_data["actors"],
+            year = cleaned_data["year"],
+            video = cleaned_data["video"],
+            description = cleaned_data["description"],)
+        return result
+    
+    def form_invalid(self, form):
+        LOGGER.warning("User provided invalid data.")
+        return super().form_invalid(form)
 
 def movies_by_genre(request, pk):
     genre_movies = Genre.objects.get(id=pk)
